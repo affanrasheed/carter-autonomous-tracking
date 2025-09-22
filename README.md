@@ -1,6 +1,7 @@
 # Carter - Autonomous Object Tracking System
 
 A comprehensive Docker Compose setup for deploying Carter, an autonomous object tracking and navigation system that uses computer vision, SLAM, and ROS2 for intelligent object following and path planning in Isaac Sim.
+![alt-text](assets/demo.gif)
 
 ## System Overview
 
