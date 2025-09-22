@@ -177,9 +177,9 @@ The Carter system supports a distributed testing setup where Isaac Sim runs on a
 
 ### Isaac Sim Computer Setup
 
-1. **Load USD File**:
+1. **Load [USD File](https://drive.google.com/file/d/1lrf2Ae8w3ttj59MytfBI30gwEWmLpjh6/view?usp=sharing)**:
    ```bash
-   # Load the [USD file](https://drive.google.com/file/d/1lrf2Ae8w3ttj59MytfBI30gwEWmLpjh6/view?usp=sharing) in Isaac Sim
+   # Load the USD file in Isaac Sim
    # Open Isaac Sim and load this file to set up the Carter robot environment
    ```
 
