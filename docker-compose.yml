@@ -1,0 +1,74 @@
+services:
+  # Perception Service - Handles nvslam, nvblox, and nav2 for autonomous navigation
+  robot-path-planning:
+    image: nvblox_ros:${ARCH_TAG:-x86}
+    container_name: carter_path_planning
+    privileged: true
+    network_mode: host
+    ipc: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - DISPLAY=${DISPLAY}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+      - USER=${USER}
+      - HOST_USER_UID=${HOST_USER_UID:-1000}
+      - HOST_USER_GID=${HOST_USER_GID:-1000}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${HOME}/.Xauthority:/home/admin/.Xauthority:rw
+      - /etc/localtime:/etc/localtime:ro
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    profiles:
+      - robot-path-planning
+      - all
+    depends_on:
+      - goal-pose-generation
+  
+  # Depth Generation Service - Processes stereo images to produce depth maps
+  ess-depth:
+    image: ess_ros:${ARCH_TAG:-x86}
+    container_name: carter_ess_depth
+    privileged: true
+    network_mode: host
+    ipc: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - DISPLAY=${DISPLAY}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+      - USER=${USER}
+      - HOST_USER_UID=${HOST_USER_UID:-1000}
+      - HOST_USER_GID=${HOST_USER_GID:-1000}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${HOME}/.Xauthority:/home/admin/.Xauthority:rw
+      - ${ESS_MODEL_PATH:-${HOME}/ess_model}:/workspaces/isaac_ros-ws/isaac_ros_assets/models/dnn_stereo_disparity
+      - /etc/localtime:/etc/localtime:ro
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    profiles:
+      - ess-depth
+      - all
+
+networks:
+  default:
+    external: true
+    name: host
