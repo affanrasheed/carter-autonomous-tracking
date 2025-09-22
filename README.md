@@ -162,7 +162,7 @@ docker compose logs -f
 
 ### Testing Setup Overview
 
-The Carter system supports a distributed testing setup where Isaac Sim runs on a separate computer along with the ESS-depth service, while all other services run on the Jetson. This configuration optimizes performance by leveraging the computational power of both systems.
+The Carter system supports a distributed testing setup where Isaac Sim runs on a separate computer, while all other services run on the Jetson. 
 
 ### Hardware Requirements for Testing
 
@@ -172,7 +172,7 @@ The Carter system supports a distributed testing setup where Isaac Sim runs on a
 - **Network Setup**: Both computers should be on the same network segment for ROS2 communication
 
 #### Computer Specifications
-- **Isaac Sim Computer**: High-performance system with powerful GPU for simulation and depth estimation
+- **Isaac Sim Computer**: High-performance system with powerful GPU for simulation
 - **Jetson Computer**: NVIDIA Jetson device for real-time robot control and navigation
 
 ### Isaac Sim Computer Setup
@@ -183,12 +183,7 @@ The Carter system supports a distributed testing setup where Isaac Sim runs on a
    # Open Isaac Sim and load this file to set up the Carter robot environment
    ```
 
-2. **Run ESS-Depth Service**:
-   ```bash
-   ./start-carter.sh --profile ess-depth  ## First run will take time
-   ```
-
-3. **Configure ROS2 Networking**:
+2. **Configure ROS2 Networking**:
    ```bash
    # Set ROS domain (must match Jetson)
    export ROS_DOMAIN_ID=0
@@ -210,19 +205,17 @@ The Carter system supports a distributed testing setup where Isaac Sim runs on a
 
 2. **Run Jetson Services**:
    ```bash
-   # Run all services except ESS-depth
-   ARGH_TAG=arm64 docker compose --env-file carter.env --profile robot-path-planning up 
+   # Run all services
+   ARGH_TAG=arm64 docker compose --env-file carter.env --profile all up 
    ```
 
 ### Testing Procedure
 
 1. **Start Isaac Sim Computer**:
    - Load `carter_perception.usd` in Isaac Sim
-   - Start ESS-depth service
-   - Verify depth data is being published
 
 2. **Start Jetson Computer**:
-   - Launch remaining Carter services
+   - Launch Carter services
    - Verify all services are running and communicating
 
 3. **Test System Integration**:
@@ -231,7 +224,7 @@ The Carter system supports a distributed testing setup where Isaac Sim runs on a
    ros2 topic list  # Should show topics from both computers
 
    # Monitor system output
-   ros2 topic echo /goal_pose
+   ros2 topic echo /depth
    ros2 topic echo /cmd_vel
    ```
 
