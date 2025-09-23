@@ -31,8 +31,6 @@ services:
     profiles:
       - robot-path-planning
       - all
-    depends_on:
-      - goal-pose-generation
   
   # Depth Generation Service - Processes stereo images to produce depth maps
   ess-depth:

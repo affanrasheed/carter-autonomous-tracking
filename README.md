@@ -73,12 +73,12 @@ ROS_DOMAIN_ID=0
 
 Follow the individual component README files for detailed setup:
 - `docs/ESS-Depth/Readme.md` - Depth generation service setup
-- `docs/goal_pose_generation/README.md` - Goal pose generation service setup
+- `docs/Perception/Readme.md` - Perception service (nvslam, nvblox, nav2) setup
 
 ## Usage Instruction
 
 ### Quick Start with Startup Script
-- For first run only, run these services 
+- For first run only
 ```bash
 # On first run it will perform tensorrt optimization on ESS model specific to hardware
 # This optimization process will take 10 mins to 30 mins depending on the hardware
@@ -363,7 +363,7 @@ ls -la ~/ess_model
 ### Service-Specific Debugging
 
 #### Depth Generation Service (ESS)
-- Check stereo camera topics: `/front_stereo_camera/left/image_rect_color1`, `/front_stereo_camera/right/image_rect_color1`
+- Check stereo camera topics: `/front_stereo_camera/left/image_rect_color`, `/front_stereo_camera/right/image_rect_color`
 - Verify ESS model files exist in `~/ess_model`
 - Monitor depth output: `ros2 topic echo /depth`
 
@@ -389,8 +389,7 @@ carter/
 ├── README.md                    # This documentation
 └── docs/                        # Service components and documentation
     ├── ESS-Depth/                # Depth generation service Docker setup
-    ├── Perception/               # Perception service (nvslam, nvblox, nav2)
-
+    └── Perception/               # Perception service (nvslam, nvblox, nav2)
 ```
 ## Configuration Files
 

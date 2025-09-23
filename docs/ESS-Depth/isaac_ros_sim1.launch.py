@@ -34,7 +34,7 @@ def generate_launch_description():
         }],
         remappings=[
             ('camera_info', '/front_stereo_camera/right/camera_info'),
-            ('image', '/front_stereo_camera/right/image_rect_color1'),
+            ('image', '/front_stereo_camera/right/image_rect_color'),
             ('resize/camera_info', 'front_stereo_camera/right/camera_info_resize'),
             ('resize/image', 'front_stereo_camera/right/image_resize')]
     )
@@ -50,7 +50,7 @@ def generate_launch_description():
         }],
         remappings=[
             ('camera_info', '/front_stereo_camera/left/camera_info'),
-            ('image', '/front_stereo_camera/left/image_rect_color1'),
+            ('image', '/front_stereo_camera/left/image_rect_color'),
             ('resize/camera_info', 'front_stereo_camera/left/camera_info_resize'),
             ('resize/image', 'front_stereo_camera/left/image_resize')]
     )
